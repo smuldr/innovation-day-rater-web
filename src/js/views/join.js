@@ -7,6 +7,8 @@ import {
 	UI
 } from 'touchstonejs';
 
+const apiUrl = (window.location.protocol === 'https:') ? 'https://xebia-innovation-day-rater.appspot.com' : 'http://xebia-innovation-day-rater.appspot.com';
+
 module.exports = React.createClass({
 	contextTypes: {
 		app: React.PropTypes.object,
@@ -48,7 +50,7 @@ module.exports = React.createClass({
 
 			httpify({
 				method: 'GET',
-				url: 'http://xebia-innovation-day-rater.appspot.com/session?name=' + this.state.sessionName,
+				url: apiUrl + '/session?name=' + this.state.sessionName,
 				headers: {'Accept': 'application/json'},
 				timeout: 20000
 			}, (err, res) => {

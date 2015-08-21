@@ -13,6 +13,8 @@ const categoryMapper = {
 	technology: 4
 };
 
+const apiUrl = (window.location.protocol === 'https:') ? 'https://xebia-innovation-day-rater.appspot.com' : 'http://xebia-innovation-day-rater.appspot.com';
+
 function createGuid () {
 	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 		var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
@@ -79,7 +81,7 @@ module.exports = React.createClass({
 
 		httpify({
 			method: 'POST',
-			url: 'http://xebia-innovation-day-rater.appspot.com/session/' + this.state.session.SessionID + '/talk/' + this.state.session.Talks[0].TalkID + '/vote',
+			url: apiUrl + '/session/' + this.state.session.SessionID + '/talk/' + this.state.session.Talks[0].TalkID + '/vote',
 			body: JSON.stringify({
 				VoteID: createGuid(),
 				UserID: userId,
