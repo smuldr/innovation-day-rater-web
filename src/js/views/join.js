@@ -28,7 +28,7 @@ module.exports = React.createClass({
 				visible: false,
 				text: ''
 			},
-			sessionName: ''
+			sessionName: 'Test session please ignore'
 		}
 	},
 
@@ -59,7 +59,7 @@ module.exports = React.createClass({
 					}, 1000);
 				} else {
 					console.log('found session', res.body);
-					this.context.dataStore.joinSession(res.body.Name, res.body.Guid);
+					this.context.dataStore.joinSession(res.body);
 					self.transitionTo('main:rate', {transition: 'reveal-from-bottom'});
 				}
 			});
@@ -93,8 +93,8 @@ module.exports = React.createClass({
 	render () {
 		return (
 			<Container>
-				<UI.Group>
-					<UI.Alertbar type={'warning'} visible={this.state.alertbar.visible} animated>{this.state.alertbar.text || ''}</UI.Alertbar>
+				<UI.Alertbar type={'warning'} visible={this.state.alertbar.visible} animated>{this.state.alertbar.text || ''}</UI.Alertbar>
+				<UI.Group hasTopGutter>
 					<UI.GroupHeader>Greetings, stranger</UI.GroupHeader>
 					<UI.GroupBody>
 						<UI.GroupInner>
