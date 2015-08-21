@@ -28,7 +28,8 @@ module.exports = React.createClass({
 				visible: false,
 				text: ''
 			},
-			sessionName: ''
+			sessionName: '',
+			loading: false
 		}
 	},
 
@@ -105,8 +106,8 @@ module.exports = React.createClass({
 				<UI.Group>
 					<UI.GroupHeader>Join session</UI.GroupHeader>
 					<UI.GroupBody>
-						<UI.Input ref="sessionName" value={this.state.sessionName} onChange={this.onChange} placeholder="Session Name"/>
-						<UI.Button type="primary" onTap={this.join}>JOIN SESSION</UI.Button>
+						<UI.Input ref="sessionName" value={this.state.sessionName} onChange={this.onChange} disabled={this.state.loading} placeholder="Session Name"/>
+						<UI.Button type="primary" disabled={this.state.loading} onTap={this.join}>JOIN SESSION</UI.Button>
 					</UI.GroupBody>
 				</UI.Group>
 			</Container>
