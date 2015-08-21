@@ -1,4 +1,5 @@
 import React from 'react/addons';
+import Timers from 'react-timers';
 import httpify from 'httpify';
 import {
 	Container,
@@ -7,7 +8,7 @@ import {
 } from 'touchstonejs';
 
 module.exports = React.createClass({
-	mixins: [Mixins.Transitions],
+	mixins: [Mixins.Transitions, Timers()],
 	statics: {
 		navigationBar: 'main',
 		getNavigation () {
@@ -19,6 +20,10 @@ module.exports = React.createClass({
 
 	getInitialState () {
 		return {
+			alertbar: {
+				visible: false,
+				text: ''
+			},
 			sessionName: ''
 		}
 	},
@@ -34,21 +39,24 @@ module.exports = React.createClass({
 		var self = this;
 
 		if (this.state.sessionName) {
-			console.log('joining...', this.state.sessionName, this.createGuid());
+			console.log('join session', this.state.sessionName);
 
 			httpify({
-				method: 'POST',
-				url: 'http://xebia-innovation-day-rater.appspot.com/session',
-				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-				body: JSON.stringify({ Guid: self.createGuid(), Name: this.state.sessionName }),
+				method: 'GET',
+				url: 'http://xebia-innovation-day-rater.appspot.com/session?name=' + this.state.sessionName,
+				headers: {'Accept': 'application/json'},
 				timeout: 20000
 			}, (err, res) => {
 				if (err) {
-					console.error('failed to POST session', err);
-					return;
+					console.error('failed to GET session', err);
+					this.showAlert('Could not find session');
+					this.setTimeout(function () {
+						this.hideAlert();
+					}, 1000);
+				} else {
+					console.log('found session', res.body);
+					self.transitionTo('main:rate', {transition: 'reveal-from-bottom'});
 				}
-				console.log('response body', res.body);
-				self.transitionTo('main:rate', { transition: 'reveal-from-bottom' });
 			});
 		}
 	},
@@ -59,10 +67,29 @@ module.exports = React.createClass({
 		})
 	},
 
+	showAlert(message) {
+		this.setState({
+			alertbar: {
+				visible: true,
+				text: message
+			}
+		});
+	},
+
+	hideAlert() {
+		this.setState({
+			alertbar: {
+				visible: false,
+				text: ''
+			}
+		});
+	},
+
 	render () {
 		return (
 			<Container>
 				<UI.Group>
+					<UI.Alertbar type={'warning'} visible={this.state.alertbar.visible} animated>{this.state.alertbar.text || ''}</UI.Alertbar>
 					<UI.GroupHeader>Greetings, stranger</UI.GroupHeader>
 					<UI.GroupBody>
 						<UI.GroupInner>
