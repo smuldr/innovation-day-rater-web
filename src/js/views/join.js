@@ -28,7 +28,7 @@ module.exports = React.createClass({
 				visible: false,
 				text: ''
 			},
-			sessionName: 'Test session please ignore'
+			sessionName: ''
 		}
 	},
 
