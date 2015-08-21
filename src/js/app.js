@@ -10,19 +10,19 @@ import {
 // App Config
 // ------------------------------
 
-const PeopleStore = require('./stores/people')
-const peopleStore = new PeopleStore()
+const DataStore = require('./stores/datastore')
+const dataStore = new DataStore()
 
 var App = React.createClass({
 	mixins: [createApp()],
 
 	childContextTypes: {
-		peopleStore: React.PropTypes.object
+		dataStore: React.PropTypes.object
 	},
 
 	getChildContext () {
 		return {
-			peopleStore: peopleStore
+			dataStore: dataStore
 		};
 	},
 

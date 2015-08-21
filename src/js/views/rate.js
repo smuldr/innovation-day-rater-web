@@ -5,6 +5,11 @@ import {
 } from 'touchstonejs';
 
 module.exports = React.createClass({
+	contextTypes: {
+		app: React.PropTypes.object,
+		dataStore: React.PropTypes.object.isRequired
+	},
+
 	statics: {
 		navigationBar: 'main',
 		getNavigation () {
@@ -14,14 +19,20 @@ module.exports = React.createClass({
 		}
 	},
 
+	getInitialState () {
+		return {
+			session: this.context.dataStore.getSession()
+		}
+	},
+
 	render () {
 		return (
 			<Container>
 				<UI.Group>
-					<UI.GroupHeader>Rate all the things!</UI.GroupHeader>
+					<UI.GroupHeader>{this.state.session}</UI.GroupHeader>
 					<UI.GroupBody>
 						<UI.GroupInner>
-							<p>Starry night</p>
+							<p>You are now rating session '{this.state.session}'.</p>
 						</UI.GroupInner>
 					</UI.GroupBody>
 				</UI.Group>

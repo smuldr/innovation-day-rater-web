@@ -8,6 +8,10 @@ import {
 } from 'touchstonejs';
 
 module.exports = React.createClass({
+	contextTypes: {
+		app: React.PropTypes.object,
+		dataStore: React.PropTypes.object.isRequired
+	},
 	mixins: [Mixins.Transitions, Timers()],
 	statics: {
 		navigationBar: 'main',
@@ -55,6 +59,7 @@ module.exports = React.createClass({
 					}, 1000);
 				} else {
 					console.log('found session', res.body);
+					this.context.dataStore.joinSession(res.body.Name, res.body.Guid);
 					self.transitionTo('main:rate', {transition: 'reveal-from-bottom'});
 				}
 			});
