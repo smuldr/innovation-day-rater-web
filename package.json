@@ -1,14 +1,14 @@
 {
-  "name": "touchstonejs-starter",
-  "version": "0.0.2",
-  "description": "Touchstone Starter",
+  "name": "innovation-day-rater-web",
+  "version": "0.0.1",
+  "description": "Web client for Xebia Innovation Day Rating App",
   "main": "src/js/app.js",
-  "author": "Jed Watson",
+  "author": "Steven Mulder",
   "license": "MIT",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/touchstonejs/touchstonejs-starter.git"
+    "url": "https://github.com/smuldr/innovation-day-rater-web.git"
   },
   "dependencies": {
     "async": "^1.3.0",

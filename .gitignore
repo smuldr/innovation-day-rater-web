@@ -46,3 +46,7 @@ ant-build
 ant-gen
 gen
 out
+
+# IDEA
+.idea/
+*.iml
